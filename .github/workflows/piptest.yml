@@ -8,7 +8,6 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
         with:
-          branch: pip
           ssh-key: ${{ secrets.CMU_DELPHI_DEPLOY_MACHINE_SSH }}
       - name: Set up Python 3.8
         uses: actions/setup-python@v2

@@ -1,5 +1,11 @@
 name: Update Google Docs Meta Data
 on:
+  push:
+    branches:
+      - pip
+  pull_request:
+    branches:
+      - pip
   workflow_dispatch:
 jobs:
   update_gdocs:
@@ -8,6 +14,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
         with:
+          ref: dev
           ssh-key: ${{ secrets.CMU_DELPHI_DEPLOY_MACHINE_SSH }}
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
@@ -16,9 +23,9 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pipd-${{ hashFiles('requirements.dev.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.dev.txt') }}
           restore-keys: |
-            ${{ runner.os }}-pipd-
+            ${{ runner.os }}-pip-
       - name: Install Dependencies
         run: |
           pip -V

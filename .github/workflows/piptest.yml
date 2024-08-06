@@ -9,17 +9,17 @@ on:
   workflow_dispatch:
 jobs:
   update_gdocs:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.02
     steps:
       - name: Check out code
         uses: actions/checkout@v2
         with:
           branch: dev
           ssh-key: ${{ secrets.CMU_DELPHI_DEPLOY_MACHINE_SSH }}
-      - name: Set up Python 3.10
+      - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
-          python-version: 3.10
+          python-version: 3.8
       - uses: actions/cache@v2
         with:
           path: ~/.cache/pip

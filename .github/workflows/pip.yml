@@ -14,6 +14,9 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
+      - name: Install pip 22.0.2
+        run: |
+          python -m pip install --upgrade pip==22.0.2
       - uses: actions/cache@v2
         with:
           path: ~/.cache/pip
@@ -22,8 +25,6 @@ jobs:
             ${{ runner.os }}-pipd-
       - name: Install Dependencies
         run: |
-          pip -V
-          python -m pip install pip==22.0.2
           pip install -r requirements.dev.txt
       - name: Update Docs
         run: inv update-gdoc

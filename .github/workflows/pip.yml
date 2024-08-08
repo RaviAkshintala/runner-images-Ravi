@@ -1,41 +1,19 @@
-name: Update Google Docs Meta Data
-on:
-  workflow_dispatch:
+name: Check pip Version
+
+on: [push, pull_request]
+
 jobs:
-  update_gdocs:
+  check-pip-version:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-        with:
-          branch: dev
-          ssh-key: ${{ secrets.CMU_DELPHI_DEPLOY_MACHINE_SSH }}
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - name: Install pip 22.0.2
-        run: |
-          python -m pip install --upgrade pip==22.0.2
-      - uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pipd-${{ hashFiles('requirements.dev.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pipd-
-      - name: Install Dependencies
-        run: |
-          pip install -r requirements.dev.txt
-      - name: Update Docs
-        run: inv update-gdoc
-      - name: Create pull request into dev
-        uses: peter-evans/create-pull-request@v3
-        with:
-          branch: bot/update-docs
-          commit-message: 'chore: update docs'
-          title: Update Google Docs Meta Data
-          labels: chore
-          reviewers: melange396
-          assignees: melange396
-          body: |
-            Updating Google Docs Meta Data
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.10.12
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.10.12
+
+    - name: Check pip version
+      run: pip -V

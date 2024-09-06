@@ -1,0 +1,21 @@
+name: Build
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-24.04
+          - ubuntu-22.04
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Update Ubuntu
+        if: runner.os == 'linux'
+        run: |
+          sudo apt-get update
+          sudo apt-cache search darcs
+          sudo apt-get install darcs libcurl4

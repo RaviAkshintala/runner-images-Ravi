@@ -17,6 +17,4 @@ jobs:
         if: runner.os == 'linux'
         run: |
           sudo apt-get update
-          sudo apt-get install libcurl4
-          sudo apt-cache search darcs
-          sudo apt-get install darcs 
+          sudo apt-get install -y darcs libcurl4

@@ -17,7 +17,7 @@ jobs:
         if: runner.os == 'linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y ghc cabal-install
+          sudo apt-get install -y ghc-8.10.7 cabal-install-3.4  # Installing specific versions of ghc and cabal-install
           cabal update
-          cabal install cabal-install-3.10.1.0  # Pinning a compatible version of Cabal
+          cabal install darcs
           cabal install darcs

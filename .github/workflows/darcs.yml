@@ -19,4 +19,5 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ghc cabal-install
           cabal update
+          cabal install cabal-install-3.10.1.0  # Pinning a compatible version of Cabal
           cabal install darcs

@@ -17,5 +17,6 @@ jobs:
         if: runner.os == 'linux'
         run: |
           sudo apt-get update
-          sudo apt-cache search darcs || sudo add-apt-repository ppa:your-ppa/darcs
-          sudo apt-get install -y darcs
+          sudo apt-get install -y ghc cabal-install
+          cabal update
+          cabal install darcs

@@ -24,5 +24,4 @@ jobs:
           ghcup set ghc 8.10.7
           ghcup install cabal 3.4.0.0
           ghcup set cabal 3.4.0.0
-          cabal update
-          cabal install darcs
+         

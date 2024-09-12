@@ -1,0 +1,20 @@
+name: Check Darcs Installation
+
+on: [push, pull_request]
+
+jobs:
+  check-darcs:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+
+    - name: Check if darcs is installed
+      run: |
+        if command -v darcs &> /dev/null
+        then
+          echo "Darcs is installed"
+        else
+          echo "Darcs is not installed"
+          exit 1
+        fi

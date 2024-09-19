@@ -1,0 +1,14 @@
+
+name: Docker container 
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Debug MSSQL Container Start
+        run: |
+          docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=YourStrong!Passw0rd' --name mssql --detach mcr.microsoft.com/mssql/server:2019-CU18-ubuntu-20.04
+          sleep 120
+          docker ps
+          docker logs mssql

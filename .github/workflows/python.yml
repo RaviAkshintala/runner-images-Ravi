@@ -1,0 +1,19 @@
+name: Install Python on Windows 2022
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: windows-2022
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'  # Specify the Python version you need
+
+    - name: Verify Python installation
+      run: python --version

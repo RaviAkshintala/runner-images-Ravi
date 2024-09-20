@@ -1,0 +1,33 @@
+name: Build and Publish
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+
+      - name: Restore NuGet Packages
+        run: dotnet restore --verbosity detailed
+
+      - name: Build
+        run: dotnet build --configuration Release
+
+      - name: NuGet Packages Artifacts
+        uses: actions/upload-artifact@v4.4.0
+        if: always()
+        with:
+          name: NuGetPackages${{ matrix.os }}
+          path: '**/*.*nupkg'

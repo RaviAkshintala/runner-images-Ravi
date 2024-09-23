@@ -3,11 +3,8 @@
 
 name: .NET
 
-on:
-  push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
+name: Build and Publish
+on: [push, pull_request]
   workflow_dispatch:
     inputs:
       publish-packages:

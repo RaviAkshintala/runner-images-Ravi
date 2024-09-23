@@ -1,33 +1,71 @@
-name: Build and Publish
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-on: [push, pull_request]
+name: .NET
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      publish-packages:
+        description: Publish packages?    
+        type: boolean
+        required: true
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
+  modularpipeline:
+    environment: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Pull Requests' }}
+    strategy: 
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
+
+    env:
+      NUGET_TIMEOUT: 60  # Increase the timeout for NuGet operations
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Cache NuGet packages
-        uses: actions/cache@v3
+      - uses: actions/checkout@v4
         with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          fetch-depth: 0
+          
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
 
-      - name: Restore NuGet Packages
-        run: dotnet restore --verbosity detailed
+      - name: Clear NuGet Cache
+        run: dotnet nuget locals all --clear
+
+      - name: Restore Packages
+        run: dotnet restore --verbosity detailed --no-cache --ignore-failed-sources
 
       - name: Build
-        run: dotnet build --configuration Release
+        run: dotnet build -c Release
 
+      - name: Run Pipeline
+        run: dotnet run -c Release
+        working-directory: "TUnit.Pipeline"
+        env:
+          ADMIN_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+          DOTNET_ENVIRONMENT: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Development' }}
+          NuGet__ApiKey: ${{ secrets.NUGET__APIKEY }}
+          NuGet__ShouldPublish: ${{ (github.event.inputs.publish-packages || false) && matrix.os == 'ubuntu-latest' }}
+      
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.4.0
+        if: always()
+        with:
+          name: TestingPlatformDiagnosticLogs${{matrix.os}}
+          path: '**/log_*.diag'
+          
       - name: NuGet Packages Artifacts
         uses: actions/upload-artifact@v4.4.0
         if: always()
         with:
-          name: NuGetPackages${{ matrix.os }}
+          name: NuGetPackages${{matrix.os}}
           path: '**/*.*nupkg'

@@ -1,8 +1,6 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
 name: .NET
-on: [push, pull_request]
+
+  on: [push, pull_request]  
   workflow_dispatch:
     inputs:
       publish-packages:
@@ -55,12 +53,11 @@ jobs:
         uses: actions/upload-artifact@v4.4.0
         if: always()
         with:
-          name: TestingPlatformDiagnosticLogs${{matrix.os}}
+          name: TestingPlatformDiagnosticLogs${{ matrix.os }}
           path: '**/log_*.diag'
           
       - name: NuGet Packages Artifacts
         uses: actions/upload-artifact@v4.4.0
         if: always()
         with:
-          name: NuGetPackages${{matrix.os}}
-          path: '**/*.*nupkg'
+       

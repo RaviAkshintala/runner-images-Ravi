@@ -1,0 +1,16 @@
+name: Install Darcs
+
+on: [push, pull_request]
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Darcs
+        run: |
+          sudo apt update
+          sudo apt install -y darcs

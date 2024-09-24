@@ -1,0 +1,13 @@
+name: Check Az Module
+
+on: [push,pull_request]
+
+jobs:
+  check-module:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check for Az Module
+        shell: pwsh
+        run: |
+          Get-Module -Name Az.* -ListAvailable

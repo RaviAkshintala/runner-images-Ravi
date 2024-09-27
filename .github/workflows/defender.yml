@@ -27,3 +27,6 @@ jobs:
 
     - name: Check MDATP health
       run: mdatp health
+      
+    - name: Run MDATP Diagnostic
+      run: mdatp diagnostic resource-manager-statistic

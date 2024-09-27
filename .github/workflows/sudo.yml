@@ -1,0 +1,26 @@
+name: main
+
+on: 
+  push: {}
+  pull_request: {}
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            cache-path: ${{ github.workspace }}/vcpkg_cache
+          - os: macos-latest
+            cache-path: ${{ github.workspace }}/vcpkg_cache
+    env:  
+      VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
+      VCPKG_DEFAULT_BINARY_CACHE: ${{ matrix.cache-path }}
+
+    steps:
+    - name: install sudo
+      if: matrix.os == 'ubuntu-latest'
+      run: apt update && apt install sudo

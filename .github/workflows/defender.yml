@@ -29,4 +29,4 @@ jobs:
       run: mdatp health
       
     - name: Run MDATP Diagnostic
-      run: mdatp diagnostic resource-manager-statistic
+      run: mdatp diagnostic real-time-protection-statistics --output json

@@ -23,4 +23,4 @@ jobs:
     steps:
     - name: install sudo
       if: matrix.os == 'ubuntu-latest'
-      run: apt update && apt install sudo
+      run: sudo apt update && sudo apt install sudo

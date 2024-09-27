@@ -25,6 +25,13 @@ jobs:
     - name: Install Microsoft Defender ATP
       run: sudo apt-get install -y mdatp
 
+    - name: Verify MDATP License
+      run: |
+        if ! mdatp health | grep -q "License status: Licensed"; then
+          echo "No valid license found. Please ensure MDATP is properly licensed."
+          exit 1
+        fi
+
     - name: Enable real-time protection
       run: sudo mdatp config real-time-protection --value enabled
 

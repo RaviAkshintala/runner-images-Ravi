@@ -25,8 +25,16 @@ jobs:
     - name: Install Microsoft Defender ATP
       run: sudo apt-get install -y mdatp
 
+    - name: Enable real-time protection
+      run: sudo mdatp config real-time-protection --value enabled
+
+    - name: Trigger activity for real-time protection
+      run: |
+        echo "This is a test file to trigger real-time protection" > testfile.txt
+        sudo mdatp scan file --path testfile.txt
+
     - name: Check MDATP health
       run: mdatp health
-      
+
     - name: Run MDATP Diagnostic
       run: mdatp diagnostic real-time-protection-statistics --output json

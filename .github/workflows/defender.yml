@@ -1,0 +1,29 @@
+name: Install and Check MDATP
+
+on: [push,pull_request]
+
+jobs:
+  install-and-check-mdatp:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Update package list
+      run: sudo apt-get update
+
+    - name: Install prerequisites
+      run: sudo apt-get install -y curl libplist-utils
+
+    - name: Download Microsoft Defender package
+      run: |
+        curl -O https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb
+        sudo dpkg -i packages-microsoft-prod.deb
+        sudo apt-get update
+
+    - name: Install Microsoft Defender ATP
+      run: sudo apt-get install -y mdatp
+
+    - name: Check MDATP health
+      run: mdatp health

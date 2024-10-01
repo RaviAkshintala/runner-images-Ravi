@@ -1,34 +1,22 @@
-name: CD
+name: CI
 
-on: 
-  workflow_dispatch: {}
-  push:
-    tags: [ 'v*' ]
-
-
+on: [push, pull_request]
 
 jobs:
-  build:
+  setup:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        docker_channel:
-          - stable
+        docker_channel: [stable, nightly]  # Adjust as needed
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v2
-      - name: setup Docker
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Docker
         uses: docker-practice/actions-setup-docker@master
         with:
           docker_channel: ${{ matrix.docker_channel }}
 
-
-      - name: Install requirements
-        run: |
-          pip install DockerBuildManagement
-      
-      - name: Publish
-        run: |
-          dbm -build -publish prod
+      - name: Verify Docker installation
+        run: docker --version

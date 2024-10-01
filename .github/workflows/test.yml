@@ -2,21 +2,30 @@ name: CI
 
 on: [push, pull_request]
 
+name: Docker Setup and Check
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
-  setup:
+  docker-setup:
     runs-on: ubuntu-24.04
-    strategy:
-      matrix:
-        docker_channel: [stable, nightly]  # Adjust as needed
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup Docker
-        uses: docker-practice/actions-setup-docker@master
-        with:
-          docker_channel: ${{ matrix.docker_channel }}
+      - name: Set up Docker
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+          sudo systemctl start docker
+          sudo systemctl enable docker
 
-      - name: Verify Docker installation
+      - name: Check Docker version
         run: docker --version
+
+      - name: Check Docker Info
+        run: docker info

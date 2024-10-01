@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   setup:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         docker_channel: [stable, nightly]  # Adjust as needed

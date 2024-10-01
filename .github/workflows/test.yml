@@ -1,0 +1,28 @@
+name: CD
+
+on: [push,pull_request]
+   
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        docker_channel:
+          - stable
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+      - name: setup Docker
+        uses: docker-practice/actions-setup-docker@master
+        with:
+          docker_channel: ${{ matrix.docker_channel }}
+    
+      - name: Install requirements
+        run: |
+          pip install DockerBuildManagement
+      
+      - name: Publish
+        run: |
+          dbm -build -publish prod

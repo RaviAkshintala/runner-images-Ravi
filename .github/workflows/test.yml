@@ -1,7 +1,12 @@
 name: CD
 
-on: [push,pull_request]
-   
+on: 
+  workflow_dispatch: {}
+  push:
+    tags: [ 'v*' ]
+
+
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,7 +23,8 @@ jobs:
         uses: docker-practice/actions-setup-docker@master
         with:
           docker_channel: ${{ matrix.docker_channel }}
-    
+
+
       - name: Install requirements
         run: |
           pip install DockerBuildManagement

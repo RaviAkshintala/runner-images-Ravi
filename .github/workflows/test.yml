@@ -2,13 +2,6 @@ name: CI
 
 on: [push, pull_request]
 
-name: Docker Setup and Check
-
-on:
-  push:
-    branches:
-      - main
-
 jobs:
   docker-setup:
     runs-on: ubuntu-24.04

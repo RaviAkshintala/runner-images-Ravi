@@ -1,0 +1,25 @@
+name: CD
+
+on:
+  push:
+    branches: ["setup-docker"]
+  pull_request:
+    branches: ["setup-docker"]
+  workflow_dispatch:
+ 
+    
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        docker_channel:
+          - stable
+
+    steps:
+      - name: setup Docker
+        uses: docker-practice/actions-setup-docker@master
+        with:
+          docker_channel: ${{ matrix.docker_channel }}
+

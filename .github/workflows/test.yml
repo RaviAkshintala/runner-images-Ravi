@@ -22,7 +22,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
       - name: setup Docker
-        uses: docker-practice/actions-setup-docker@v4
+        uses: docker-practice/actions-setup-docker@main
         with:
           docker_channel: ${{ matrix.docker_channel }}
 

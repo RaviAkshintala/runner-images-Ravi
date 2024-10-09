@@ -1,9 +1,7 @@
 name: Docker Install and Test
 
-on: 
-  push:
-    branches:
-      - main
+on: [push,pull_request]
+
 
 jobs:
   build:
@@ -31,4 +29,8 @@ jobs:
         docker --version
         docker run hello-world
 
-    
+    - name: Install Docker Compose (optional)
+      run: |
+        sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+        docker-compose --version

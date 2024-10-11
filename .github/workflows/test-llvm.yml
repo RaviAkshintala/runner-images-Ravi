@@ -18,7 +18,7 @@ jobs:
 
       - name: Install LLVM
         run: |
-          choco install llvm --version=18* -y
+          choco install llvm --version=18 -y
 
       - name: Verify LLVM Installation
         run: |

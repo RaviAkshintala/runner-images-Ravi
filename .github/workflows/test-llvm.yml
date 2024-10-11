@@ -1,0 +1,25 @@
+name: Install LLVM
+
+on: [push, pull_request]
+
+jobs:
+  install-llvm:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Chocolatey
+        run: |
+          Set-ExecutionPolicy Bypass -Scope Process -Force; `
+          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12; `
+          iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
+      - name: Install LLVM
+        run: |
+          choco install llvm --version=18* -y
+
+      - name: Verify LLVM Installation
+        run: |
+          llvm-config --version

@@ -466,7 +466,7 @@
         "version": "8.3"
     },
     "llvm": {
-        "version": "18"
+        "version": "19"
     },
     "postgresql": {
         "version": "14.12.1",

@@ -19,6 +19,11 @@ jobs:
         with:
           docker_channel: ${{ matrix.docker_channel }}
 
+      - name: Start and enable Docker service
+        run: |
+          sudo systemctl start docker
+          sudo systemctl enable docker
+
       - name: Install requirements
         run: |
           pip install DockerBuildManagement

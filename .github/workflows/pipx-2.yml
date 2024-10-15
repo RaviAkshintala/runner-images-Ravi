@@ -1,0 +1,27 @@
+name: Install and Check pipx
+
+on: [push,pull_request]
+
+
+jobs:
+  install-pipx:
+    runs-on: ubuntu-22.04  
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'  # Use the desired Python version
+
+      - name: Install pipx
+        run: |
+            sudo apt-get update
+            python3 -m pip install pipx
+         
+
+      - name: Check pipx version
+        run: |
+          pipx --version

@@ -1,0 +1,19 @@
+name: Check Pipx Version
+
+on: [push, pull_request]
+
+jobs:
+  check-pipx:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Update Package List
+        run: |
+          sudo apt-get update
+
+      - name: Show Pipx Package Info
+        run: |
+          apt-cache show pipx

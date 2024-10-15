@@ -17,13 +17,16 @@ jobs:
         uses: actions/setup-python@v2
 
       - name: Set BuildKit
-        run: |
-          echo "export DOCKER_BUILDKIT=1" >> $GITHUB_ENV
+        run: echo "export DOCKER_BUILDKIT=1" >> $GITHUB_ENV
 
-      - name: Start Docker with Experimental Features
+      - name: Enable Experimental Docker Features
         run: |
-          sudo dockerd --experimental &
-          sleep 5  # Wait for Docker to start
+          if [ ! -f /var/run/docker.pid ]; then
+            echo '{"experimental": true}' | sudo tee /etc/docker/daemon.json
+            sudo systemctl restart docker
+          else
+            echo "Docker is already running. Skipping restart."
+          fi
 
       - name: Setup Docker
         uses: docker/setup-buildx-action@v2

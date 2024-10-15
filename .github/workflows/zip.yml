@@ -1,0 +1,31 @@
+name: Check Zip Command
+
+on: [push,pull_request]
+
+jobs:
+  check-zip:
+    runs-on: ubuntu-24.04
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install zip
+      run: sudo apt-get install -y zip
+
+    - name: Create a test directory and file
+      run: |
+        mkdir test_directory
+        echo "This is a test file" > test_directory/test_file.txt
+
+    - name: Run zip command
+      run: zip -r test_archive.zip test_directory
+
+    - name: Verify zip command
+      run: |
+        if [ -f "test_archive.zip" ]; then
+          echo "Zip command executed successfully";
+        else
+          echo "Zip command failed";
+          exit 1;
+        fi

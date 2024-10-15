@@ -1,0 +1,27 @@
+name: Install and Check pipx
+
+on: [push,pull_request]
+
+
+jobs:
+  install-pipx:
+    runs-on: ubuntu-24.04  # Use the appropriate label for Ubuntu 24
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'  # Use the desired Python version
+
+      - name: Install pipx
+        run: |
+            sudo apt-get update
+            sudo apt-get install --no-install-recommends pipx
+         
+
+      - name: Check pipx version
+        run: |
+          pipx --version

@@ -12,7 +12,7 @@ if ($LASTEXITCODE -ne 0) {
 # Set default version to 1 for WSL (aka LXSS - Linux Subsystem)
 # The value should be set in the default user registry hive
 # https://github.com/actions/runner-images/issues/5760
-if (Test-IsWin22) {
+if (Test-IsWin25) {
     Write-Host "Setting WSL default version to 1"
 
     Mount-RegistryHive `

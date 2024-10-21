@@ -1,29 +1,23 @@
-name: Get File Thumbprint
+name: Extract EdgeDriver Certificate Thumbprint
 
 on: [push,pull_request]
 
 jobs:
-  thumbprint:
-    runs-on: windows-2019
+  extract_thumbprint:
+    runs-on: windows-2019  
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Download Visual Studio Installer
-      run: Invoke-WebRequest -Uri https://msedgedriver.azureedge.net/$latestVersion/edgedriver_win64.zip
-      shell: pwsh
-
-    - name: Get Signature Thumbprint
-      id: get_thumbprint
-      run: |
-        $filePath = "vs_Enterprise.exe"
-        $sig = Get-AuthenticodeSignature -FilePath $filePath
-        $thumbprint = $sig.SignerCertificate.Thumbprint
-        Write-Output "Signature Thumbprint: $thumbprint"
-        echo "thumbprint=$thumbprint" >> $env:GITHUB_ENV
-      shell: pwsh
-
-    - name: Output Thumbprint
-      run: |
-        echo "Signature Thumbprint: $env:thumbprint"
+      - name: Download EdgeDriver
+        run: |
+          Invoke-WebRequest -Uri "https://msedgedriver.azureedge.net/130.0.2849.46/edgedriver_win64.zip" -OutFile "edgedriver.zip"
+      - name: Unzip EdgeDriver
+        run: |
+          Expand-Archive -Path "edgedriver.zip" -DestinationPath "edgedriver"
+      - name: Get Certificate Thumbprint
+        run: |
+          $certPath = "edgedriver/msedgedriver.exe"  # Adjust if necessary based on extraction
+          $cert = Get-AuthenticodeSignature -FilePath $certPath
+          Write-Output "Thumbprint: $($cert.SignerCertificate.Thumbprint)"

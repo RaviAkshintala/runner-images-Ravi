@@ -1,0 +1,18 @@
+name: Get SDK Thumbprint
+on: [push,pull_request]
+
+jobs:
+  get-thumbprint:
+    runs-on: windows-2022
+
+    steps:
+    - name: Download Windows 11 SDK
+      run: |
+        Invoke-WebRequest -Uri "https://go.microsoft.com/fwlink/?linkid=2286561" -OutFile "sdksetup.exe"
+        Start-Process -FilePath "sdksetup.exe" -ArgumentList "/quiet" -Wait
+
+    - name: Extract Signature Thumbprint
+      run: |
+        $cert = Get-AuthenticodeSignature -FilePath "C:\Program Files (x86)\Windows Kits\10\bin\10.1.26100.1742\x64\signtool.exe"
+        Write-Output "Thumbprint: $($cert.SignerCertificate.Thumbprint)"
+      shell: pwsh

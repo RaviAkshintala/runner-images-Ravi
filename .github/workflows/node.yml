@@ -1,0 +1,25 @@
+name: Install Node.js
+
+on: [push,pull_request]
+
+jobs:
+  install-node:
+    runs-on: windows-2022
+
+    steps:
+    - name: Install Chocolatey
+      run: |
+        Set-ExecutionPolicy Bypass -Scope Process -Force; 
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; 
+        iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+      shell: pwsh
+
+    - name: Install Node.js 18.20.4
+      run: |
+        choco install nodejs-lts --version=18.20.4 -y
+      shell: pwsh
+
+    - name: Verify Node.js Installation
+      run: |
+        node --version
+      shell: pwsh

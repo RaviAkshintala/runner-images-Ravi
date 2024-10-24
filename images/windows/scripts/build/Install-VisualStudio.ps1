@@ -40,6 +40,12 @@ if (Test-IsWin19) {
         -Url 'https://go.microsoft.com/fwlink/p/?linkid=2196241' `
         -InstallArgs @("/q", "/norestart", "/ceip off", "/features OptionId.UWPManaged OptionId.UWPCPP OptionId.UWPLocalized OptionId.DesktopCPPx86 OptionId.DesktopCPPx64 OptionId.DesktopCPParm64") `
         -ExpectedSignature 'E4C5C5FCDB68B930EE4E19BC25D431EF6D864C51'   
+    
+    # Install Windows 11 SDK version 10.0.26100.0
+    Install-Binary -Type EXE `
+        -Url 'https://go.microsoft.com/fwlink/?linkid=2286561' `
+        -InstallArgs @("/q", "/norestart", "/ceip off", "/features OptionId.UWPManaged OptionId.UWPCPP OptionId.UWPLocalized OptionId.DesktopCPPx86 OptionId.DesktopCPPx64 OptionId.DesktopCPParm64") `
+        -ExpectedSignature '573EF451A68C33FB904346D44551BEF3BB5BBF68'  
 }
 
 if (Test-IsWin22) {    
@@ -48,12 +54,7 @@ if (Test-IsWin22) {
         -Url 'https://go.microsoft.com/fwlink/p/?LinkID=2033908' `
         -InstallArgs @("/q", "/norestart", "/ceip off", "/features OptionId.UWPManaged OptionId.UWPCPP OptionId.UWPLocalized OptionId.DesktopCPPx86 OptionId.DesktopCPPx64 OptionId.DesktopCPParm64") `
         -ExpectedSignature '7535269B94C1FEA4A5EF6D808E371DA242F27936'
-
-    # Install Windows 11 SDK version 10.0.26100.0
-    Install-Binary -Type EXE `
-        -Url 'https://go.microsoft.com/fwlink/?linkid=2286561' `
-        -InstallArgs @("/q", "/norestart", "/ceip off", "/features OptionId.UWPManaged OptionId.UWPCPP OptionId.UWPLocalized OptionId.DesktopCPPx86 OptionId.DesktopCPPx64 OptionId.DesktopCPParm64") `
-        -ExpectedSignature '573EF451A68C33FB904346D44551BEF3BB5BBF68'    
+  
 }
 
 Invoke-PesterTests -TestFile "VisualStudio"

@@ -1,19 +1,23 @@
 name: Install Node.js
 
-on: [push, pull_request]
+on:
+  push
 
 jobs:
   install-node:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        run: |
+          $default_version = "18" # Replace this with your desired Node.js version
+          Invoke-WebRequest -Uri "https://raw.githubusercontent.com/tj/n/master/bin/n" -OutFile "$env:USERPROFILE\n"
+          bash "$env:USERPROFILE\n" $default_version
 
-    - name: Setup Node.js 18 using n (if necessary)
-      shell: pwsh
-      run: |
-        $defaultVersion = "18"
-        Invoke-WebRequest -Url "https://raw.githubusercontent.com/tj/n/master/bin/n" -OutFile "$HOME\n"
-        & "$HOME\n" $defaultVersion
+      - name: Verify Node.js installation
+        run: |
+          node -v
+          npm -v

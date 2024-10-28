@@ -10,9 +10,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Setup Node.js 18 using Chocolatey
-      run: |
-        choco install nodejs --version=18.0.0 -y
 
     - name: Setup Node.js 18 using n (if necessary)
       shell: pwsh

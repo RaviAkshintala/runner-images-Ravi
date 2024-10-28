@@ -15,5 +15,5 @@ jobs:
       shell: pwsh
       run: |
         $defaultVersion = "18"
-        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/tj/n/master/bin/n" -OutFile "$HOME\n"
+        Invoke-WebRequest -Url "https://raw.githubusercontent.com/tj/n/master/bin/n" -OutFile "$HOME\n"
         & "$HOME\n" $defaultVersion

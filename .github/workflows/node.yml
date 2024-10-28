@@ -16,3 +16,9 @@ jobs:
         $versionToInstall = Resolve-ChocoPackageVersion -PackageName "nodejs" -TargetVersion $defaultVersion
         Install-ChocoPackage "nodejs" -ArgumentList "--version=$versionToInstall"
       shell: pwsh
+
+    - name: Install Node.js version 18 using n
+      run: |
+        Invoke-WebRequest -Uri https://raw.githubusercontent.com/tj/n/master/bin/n -OutFile $HOME\n
+        & $HOME\n lts
+      shell: pwsh

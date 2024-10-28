@@ -16,7 +16,7 @@ apt-get install --no-install-recommends python3 python3-dev python3-pip python3-
 # Set pipx custom directory
 export PIPX_BIN_DIR=/opt/pipx_bin
 export PIPX_HOME=/opt/pipx
-if is_ubuntu24; then
+# if is_ubuntu24; then
     apt-get install --no-install-recommends pipx
     pipx ensurepath
 
@@ -26,7 +26,7 @@ if is_ubuntu24; then
 break-system-packages = true
 EOF
 
-else
+# else
     python3 -m pip install pipx
     python3 -m pipx ensurepath
 fi

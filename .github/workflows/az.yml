@@ -4,8 +4,8 @@ on:
   push
 
 jobs:
-  run-powershell-script:
-    runs-on: windows-latest ubuntu-latest
+  run-powershell-script-windows:
+    runs-on: windows-latest
     
     steps:
       - name: Checkout repository
@@ -14,3 +14,16 @@ jobs:
       - name: Run PowerShell script
         run: ./helpers/GenerateResourcesAndImage.ps1
         shell: pwsh
+
+  run-powershell-script-ubuntu:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install PowerShell
+        run: sudo apt-get install -y powershell
+
+      - name: Run PowerShell script
+        run: pwsh ./helpers/GenerateResourcesAndImage.ps1

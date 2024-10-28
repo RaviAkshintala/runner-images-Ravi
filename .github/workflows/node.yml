@@ -16,7 +16,11 @@ jobs:
         $versionToInstall = Resolve-ChocoPackageVersion -PackageName "nodejs" -TargetVersion $defaultVersion
         Install-ChocoPackage "nodejs" -ArgumentList "--version=$versionToInstall"
         
-        # Install default Node.js
+     
+    - name: Setup Node.js 18
+      run: |
+        $defaultVersion = 18
+  
         default_version=$(get_toolset_value '.node.default')
         curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n -o ~/n
         bash ~/n $default_version

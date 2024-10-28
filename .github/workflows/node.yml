@@ -8,17 +8,16 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Setup Node.js 18
       run: |
         $defaultVersion = 18
         $versionToInstall = Resolve-ChocoPackageVersion -PackageName "nodejs" -TargetVersion $defaultVersion
         Install-ChocoPackage "nodejs" -ArgumentList "--version=$versionToInstall"
-      shell: pwsh
-
-    - name: Install Node.js version 18 using n
-      run: |
-        Invoke-WebRequest -Uri https://raw.githubusercontent.com/tj/n/master/bin/n -OutFile $HOME\n
-        & $HOME\n lts
+        
+        # Install default Node.js
+        default_version=$(get_toolset_value '.node.default')
+        curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n -o ~/n
+        bash ~/n $default_version
       shell: pwsh

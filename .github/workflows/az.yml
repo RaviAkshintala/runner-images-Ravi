@@ -1,0 +1,24 @@
+name: Run PowerShell Script
+
+on:
+  push:
+    branches:
+      - az-login123
+  pull_request:
+    branches:
+      - az-login123
+
+jobs:
+  run-powershell-script:
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up PowerShell
+        uses: actions/setup-powershell@v1
+
+      - name: Run PowerShell script
+        run: ./helpers/GenerateResourcesAndImage.ps1
+        shell: pwsh

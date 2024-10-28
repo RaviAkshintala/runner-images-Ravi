@@ -1,12 +1,7 @@
 name: Run PowerShell Script
 
 on:
-  push:
-    branches:
-      - az-login123
-  pull_request:
-    branches:
-      - az-login123
+  push
 
 jobs:
   run-powershell-script:

@@ -10,18 +10,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Setup Node.js 18
+    - name: Setup Node.js 18 using Chocolatey
       run: |
-        $defaultVersion = 18
-        $versionToInstall = Resolve-ChocoPackageVersion -PackageName "nodejs" -TargetVersion $defaultVersion
-        Install-ChocoPackage "nodejs" -ArgumentList "--version=$versionToInstall"
-        
-     
-    - name: Setup Node.js 18
-      run: |
-        $defaultVersion = 18
-  
-        default_version=$(get_toolset_value '.node.default')
-        curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n -o ~/n
-        bash ~/n $default_version
+        choco install nodejs --version=18.0.0 -y
+
+    - name: Setup Node.js 18 using n (if necessary)
       shell: pwsh
+      run: |
+        $defaultVersion = "18"
+        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/tj/n/master/bin/n" -OutFile "$HOME\n"
+        & "$HOME\n" $defaultVersion

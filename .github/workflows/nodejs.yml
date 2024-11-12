@@ -1,0 +1,15 @@
+name: Run Install-NodeJS Script
+
+on: [push, pull_request]
+
+jobs:
+  run-nodejs-script:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Install-NodeJS.ps1
+        shell: pwsh
+        run: .\images\windows\scripts\build\Install-NodeJS.ps1

@@ -1,0 +1,17 @@
+name: Install Node.js
+
+on: [push, pull_request]
+
+jobs:
+  install-nodejs:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install Node.js
+      run: |
+        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/tj/n/master/bin/n" -OutFile "$env:USERPROFILE\n"
+        & $env:USERPROFILE\n
+      shell: pwsh

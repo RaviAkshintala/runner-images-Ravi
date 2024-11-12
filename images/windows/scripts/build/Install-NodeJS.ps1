@@ -10,10 +10,9 @@ $cachePath = 'C:\npm\cache'
 New-Item -Path $prefixPath -Force -ItemType Directory
 New-Item -Path $cachePath -Force -ItemType Directory
 
-$defaultVersion = (Get-ToolsetContent).node.default
-$versionToInstall = Resolve-ChocoPackageVersion -PackageName "nodejs" -TargetVersion $defaultVersion
-
-Install-ChocoPackage "nodejs" -ArgumentList "--version=$versionToInstall"
+# Install default Node.js using the new method
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/tj/n/master/bin/n" -OutFile "$env:USERPROFILE\n"
+& "$env:USERPROFILE\n" $defaultVersion
 
 Add-MachinePathItem $prefixPath
 Update-Environment

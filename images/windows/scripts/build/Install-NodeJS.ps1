@@ -10,6 +10,8 @@ $cachePath = 'C:\npm\cache'
 New-Item -Path $prefixPath -Force -ItemType Directory
 New-Item -Path $cachePath -Force -ItemType Directory
 
+
+$defaultVersion = (Get-ToolsetContent).node.default
 # Install default Node.js using the new method
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/tj/n/master/bin/n" -OutFile "$env:USERPROFILE\n"
 & "$env:USERPROFILE\n" $defaultVersion

@@ -1,23 +1,19 @@
-
-name: Install Node.js and Check Version
+name: Install Node.js
 
 on: [push, pull_request]
 
 jobs:
-  install-node:
-    runs-on: windows-latest
+  install-nodejs:
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
 
     - name: Install Node.js
       run: |
-        $default_version = (Get-Content -Path "path\to\toolset.json" | ConvertFrom-Json).node.default
-        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/tj/n/master/bin/n" -OutFile "$env:USERPROFILE\n"
-        & "$env:USERPROFILE\n" $default_version
-      shell: pwsh
+        pwsh -command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/tj/n/master/bin/n' -OutFile '$HOME/n'"
+        pwsh -command "& '$HOME/n' $env:default_version"
 
     - name: Check Node.js version
       run: node -v
-      shell: pwsh

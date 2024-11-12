@@ -1,0 +1,25 @@
+name: Install Node.js and Check Version
+
+on: [push, pull_request]
+
+jobs:
+  install-node:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Get default Node.js version
+      id: get-version
+      run: |
+        echo "default_version=$(get_toolset_value '.node.default')" >> $GITHUB_ENV
+
+    - name: Download 'n' tool script
+      run: curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n -o ~/n
+
+    - name: Install Node.js
+      run: bash ~/n ${{ env.default_version }}
+
+    - name: Check Node.js version
+      run: node -v

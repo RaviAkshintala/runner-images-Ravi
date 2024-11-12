@@ -13,11 +13,8 @@ New-Item -Path $cachePath -Force -ItemType Directory
 
 
 $defaultVersion = (Get-ToolsetContent).node.default
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/tj/n/master/bin/n" -OutFile "$env:USERPROFILE\n"
-\
-$gitBashPath = "C:\Program Files\Git\bin\bash.exe"  # Path to Git Bash executable
-$command = "& `"$gitBashPath`" --login -i -c ""bash ~/n $defaultVersion"""  # Running 'n' script with specified version
-Invoke-Expression $command
+Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/tj/n/master/bin/n' -OutFile '$HOME/n
+& '$HOME/n' $env:default_version
 
 
 Add-MachinePathItem $prefixPath

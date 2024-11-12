@@ -14,7 +14,7 @@ New-Item -Path $cachePath -Force -ItemType Directory
 
 $defaultVersion = (Get-ToolsetContent).node.default
 Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/tj/n/master/bin/n' -OutFile '$HOME/n
-& '$HOME/n' $env:default_version
+& "$env:USERPROFILE\n" $defaultVersion
 
 
 Add-MachinePathItem $prefixPath

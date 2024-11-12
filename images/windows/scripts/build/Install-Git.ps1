@@ -9,7 +9,7 @@
 $downloadUrl = Resolve-GithubReleaseAssetUrl `
     -Repo "git-for-windows/git" `
     -Version "latest" `
-    -UrlMatchPattern "Git-*-64-bit.exe"
+    -UrlMatchPattern "Git-*-windows.2-64-bit.exe"
 
 $externalHash = Get-ChecksumFromGithubRelease `
     -Repo "git-for-windows/git" `

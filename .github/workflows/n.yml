@@ -8,10 +8,14 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v2
 
     - name: Install Node.js
       run: |
         Invoke-WebRequest -Uri "https://raw.githubusercontent.com/tj/n/master/bin/n" -OutFile "$env:USERPROFILE\n"
         & $env:USERPROFILE\n
+      shell: pwsh
+
+    - name: Check Node.js version
+      run: node -v
       shell: pwsh

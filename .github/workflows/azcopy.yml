@@ -1,0 +1,19 @@
+name: Check AzCopy Version
+
+on: [push,pull_request]
+
+jobs:
+  download-azcopy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Download AzCopy
+        run: curl -L https://aka.ms/downloadazcopy-v10-linux -o azcopy.tar.gz
+
+      - name: Extract AzCopy
+        run: tar -xzf azcopy.tar.gz --strip-components=1
+
+      - name: Check AzCopy Version
+        run: ./azcopy --version

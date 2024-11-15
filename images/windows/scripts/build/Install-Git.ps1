@@ -8,7 +8,7 @@
 
 $downloadUrl = Resolve-GithubReleaseAssetUrl `
     -Repo "git-for-windows/git" `
-    -Version "latest" `
+    -Version "2.47.0.2" `
     -UrlMatchPattern "Git-2.47.0.2-64-bit.exe"
 
 $externalHash = Get-ChecksumFromGithubRelease `

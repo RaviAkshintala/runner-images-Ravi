@@ -13,7 +13,7 @@ jobs:
     - name: Run PowerShell script
       run: powershell.exe -File images/windows/scripts/build/Install-Git.ps1
 
-      - name: Check Git Version
-        run: |
-          git --version
+    - name: Check Git Version
+      run: |
+        git --version
         shell: pwsh

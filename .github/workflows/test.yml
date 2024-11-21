@@ -1,0 +1,14 @@
+name: Run Git Installation Script
+
+on: [push,pull_request]
+
+jobs:
+  run-git-script:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Run PowerShell script
+      run: powershell.exe -File images/windows/scripts/build/Install-Git.ps1

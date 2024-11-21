@@ -15,3 +15,8 @@ jobs:
         run: |
           Start-Process git -Wait -ArgumentList 'update-git-for-windows -y'
         shell: pwsh
+
+      - name: Check Git Version
+        run: |
+          git --version
+        shell: pwsh

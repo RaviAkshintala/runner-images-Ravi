@@ -1,0 +1,17 @@
+name: Update Git for Windows
+
+on: [push,pull_request]
+  
+
+jobs:
+  update-git:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update to latest git-for-windows
+        run: |
+          Start-Process git -Wait -ArgumentList 'update-git-for-windows -y'
+        shell: pwsh

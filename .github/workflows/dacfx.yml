@@ -4,11 +4,11 @@ on: [push, pull_request]
 
 jobs:
   install-sqlserver-cmdlineutils:
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Install Chocolatey
       shell: pwsh

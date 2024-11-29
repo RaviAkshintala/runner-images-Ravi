@@ -22,3 +22,14 @@ jobs:
       run: |
         choco install sqlserver-cmdlineutils
         "C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn" | Out-File -FilePath $env:GITHUB_PATH -Append
+
+    - name: Create server instance
+      shell: pwsh
+      run: |
+        SqlLocalDB.exe create "TestLocalDBInstance"
+        SqlLocalDB.exe start "TestLocalDBInstance"
+
+    - name: Create test DB
+      shell: pwsh
+      run: |
+        sqlcmd -S "(localdb)\TestLocalDBInstance" -Q "CREATE DATABASE testDatabase"

@@ -1,0 +1,21 @@
+name: Run gsutil on Ubuntu 24 ARM64
+
+on: [push,pull_request]
+
+jobs:
+  run-gsutil:
+    runs-on: ubuntu-24.04-arm64
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install gsutil
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y python3-pip
+        pip3 install gsutil
+
+    - name: Run gsutil command
+      run: |
+        gsutil version

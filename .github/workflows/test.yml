@@ -1,21 +1,24 @@
 name: Run gsutil on Ubuntu 24 ARM64
 
-on: [push,pull_request]
+on: [push, pull_request]
 
 jobs:
-  run-gsutil:
+  install-gsutil:
     runs-on: ubuntu-24.04
-
+    
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12' 
 
     - name: Install gsutil
       run: |
-        sudo apt-get update
-        sudo apt-get install -y python3-pip
-        pip3 install gsutil
+        python -m pip install --upgrade pip
+        pip install gsutil
 
-    - name: Run gsutil command
-      run: |
-        gsutil version
+    - name: Verify gsutil installation
+      run: gsutil version

@@ -1,0 +1,27 @@
+name: Install and Verify Tools
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04-arm64
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install gsutil
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y python3-pip
+        pip3 install gsutil
+
+    - name: Verify Python Installation
+      run: python --version
+
+    - name: Verify gsutil Installation
+      run: gsutil version

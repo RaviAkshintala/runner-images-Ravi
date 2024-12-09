@@ -1,0 +1,21 @@
+name: Install and Verify Bindgen
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+
+    - name: Install Bindgen
+      run: cargo install bindgen
+
+    - name: Verify Bindgen Installation
+      run: bindgen --version

@@ -15,7 +15,7 @@ jobs:
         toolchain: stable
 
     - name: Install Bindgen
-      run: cargo install bindgen
+      run:  cargo install bindgen-cli cbindgen cargo-audit cargo-outdated
 
     - name: Verify Bindgen Installation
       run: bindgen --version

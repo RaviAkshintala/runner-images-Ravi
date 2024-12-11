@@ -26,6 +26,6 @@ jobs:
       - name: Enable experimental docker features
         run: |
           sudo sed -i 's/}/,"experimental": true}/' /etc/docker/daemon.json
-          sudo systemctl restart docker
+          sudo systemctl reload docker
       
 

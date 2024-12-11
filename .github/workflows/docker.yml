@@ -23,6 +23,4 @@ jobs:
         run: |
           pip install DockerBuildManagement
       
-      - name: Publish
-        run: |
-          dbm -build -publish prod
+

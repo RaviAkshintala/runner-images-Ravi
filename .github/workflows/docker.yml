@@ -4,7 +4,7 @@ on: [push,pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         docker_channel:
@@ -26,8 +26,7 @@ jobs:
       - name: Enable experimental docker features
         run: |
 
-          sudo mkdir -p /etc/docker
-          echo '{}' | sudo tee /etc/docker/daemon.json
+          
           sudo sed -i 's/}/,"experimental": true}/' /etc/docker/daemon.json
           sudo systemctl reload docker
         shell: bash

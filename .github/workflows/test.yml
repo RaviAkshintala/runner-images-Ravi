@@ -11,10 +11,10 @@ jobs:
           - stable
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
 
       - name: Set BuildKit
         run: echo "export DOCKER_BUILDKIT=1" >> $GITHUB_ENV
@@ -29,7 +29,7 @@ jobs:
           fi
 
       - name: Setup Docker
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
         with:
           docker_channel: ${{ matrix.docker_channel }}
 

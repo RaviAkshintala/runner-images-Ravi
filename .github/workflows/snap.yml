@@ -1,0 +1,13 @@
+name: Install Node using snap
+
+on: [push,pull_request]
+
+jobs:
+  install_node:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Clear Snap cache
+        run: sudo rm -rf /var/cache/snapd/*
+
+      - name: Install Node.js via Snap
+        run: sudo snap install node --classic --channel=${{ inputs.node_version }}

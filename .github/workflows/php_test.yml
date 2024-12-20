@@ -1,0 +1,20 @@
+name: Install PHP
+
+on: [push, pull_request]
+
+jobs:
+  install-php:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up PHP
+      run: |
+
+        sudo apt-get install --no-install-recommends \
+            php$php_version \
+            php$php_version-amqp
+    - name: Check PHP version
+      run: php -v

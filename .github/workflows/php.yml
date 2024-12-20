@@ -1,0 +1,17 @@
+name: Install PHP 8.4
+
+on: [push, pull_request]
+
+jobs:
+  install-php:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up PHP
+      run: |
+        sudo add-apt-repository ppa:ondrej/php -y
+        sudo apt-get update
+        sudo apt-get install -y php8.4
